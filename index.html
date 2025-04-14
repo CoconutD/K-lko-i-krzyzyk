@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kółko i Krzyżyk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #playerNotice {
+            background-color: lightgreen;
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            margin-bottom: 20px;
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            gap: 5px;
+            width: 310px;
+            margin-bottom: 20px;
+            position: relative; /* Zmienione, aby linia mogła być rysowana na planszy */
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            border: 2px solid #333;
+            text-align: center;
+            border-radius: 15px;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: white;
+            transition: background-color 0.3s;
+            position: relative; /* Zmienione, aby linia mogła być rysowana na komórkach */
+        }
+        .cell.X {
+            color: red;
+        }
+        .cell.O {
+            color: blue;
+        }
+        .cell:hover {
+            background-color: #e0e0e0;
+        }
+        #message {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        #resetBtn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #resetBtn:hover {
+            background-color: #45a049;
+        }
+
+        /* Dodajemy styl dla linii zwycięstwa */
+        .cell.highlight {
+            background-color: #d3ffd3;
+            border: 2px solid green;
+            position: relative;
+        }
+
+        .line {
+            position: absolute;
+            background-color: red;
+            z-index: 1;
+            transform-origin: 0 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kółko i Krzyżyk</h1>
+    
+    <!-- Powiadomienie o liczbie graczy -->
+    <div id="playerNotice">
+        Wybierz liczbę graczy (1 lub 2). Gra zostanie rozpoczęta po wybraniu.
+    </div>
+
+    <!-- Plansza do gry -->
+    <div id="board"></div>
+    <p id="message">Tura: X</p>
+    <button id="resetBtn" style="display: none;">Reset</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
