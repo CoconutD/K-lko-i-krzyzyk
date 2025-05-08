@@ -1,35 +1,35 @@
-# Kółko i Krzyżyk (Tic-Tac-Toe)
+# Kółko i Krzyżyk
 
-A simple game of Tic-Tac-Toe implemented with HTML, CSS, and JavaScript.
+Prosta gra w Kółko i Krzyżyk zaimplementowana w HTML, CSS i JavaScript.
 
-## Key Code Lines
+## Kluczowe linie kodu
 
 1. **`const board = document.querySelector("#board");`**  
-   Selects the board element by its ID to manipulate the game grid.
+   Wybiera element planszy po ID, aby manipulować siatką gry.
 
 2. **`let currentPlayer = "X";`**  
-   Initializes the first player as "X".
+   Ustawia początkowego gracza na "X".
 
 3. **`let gameBoard = ["", "", "", "", "", "", "", "", ""];`**  
-   Creates an array to represent the empty game board.
+   Tworzy tablicę reprezentującą pustą planszę gry.
 
 4. **`board.style.display = "grid";`**  
-   Sets the board layout to a CSS grid for the game cells.
+   Ustawia styl wyświetlania planszy na siatkę CSS, umożliwiając rozmieszczenie komórek.
 
 5. **`cell.addEventListener("click", handleCellClick);`**  
-   Adds a click event listener to each cell to handle user input.
+   Dodaje nasłuchiwacz na kliknięcie w każdą komórkę, aby obsłużyć ruch gracza.
 
 6. **`gameBoard[index] = currentPlayer;`**  
-   Updates the game board array when a player makes a move.
+   Aktualizuje stan planszy, przypisując znak gracza (X lub O) do odpowiedniej komórki.
 
 7. **`if (checkWin()) {`**  
-   Checks if a winning combination has been achieved after each move.
+   Sprawdza, czy po ruchu gracza nastąpiło zwycięstwo.
 
 8. **`const winConditions = [...];`**  
-   Defines possible winning conditions (horizontal, vertical, diagonal).
+   Definiuje możliwe kombinacje zwycięskie (poziome, pionowe, diagonalne).
 
 9. **`line.style.transform = "rotate(45.5deg)";`**  
-   Rotates the winning line to fit a diagonal win.
+   Obraca linię zwycięstwa, aby dopasować ją do odpowiedniego kąta dla linii diagonalnej.
 
 10. **`resetBtn.addEventListener("click", resetGame);`**  
-   Listens for a click on the reset button to restart the game.
+   Nasłuchuje kliknięcie przycisku resetu, wywołując funkcję `resetGame` do zresetowania gry.
