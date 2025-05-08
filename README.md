@@ -1,6 +1,5 @@
 # Gra w Kółko i Krzyżyk - Wyjaśnienie Kodu
 
-## **1. Pobieranie elementu planszy**
 
 ```javascript
 const board = document.querySelector("#board");
