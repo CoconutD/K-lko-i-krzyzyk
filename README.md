@@ -1,124 +1,55 @@
-Tworzenie planszy (9 komórek)
-Tworzę planszę 3x3 dynamicznie w JavaScript:
+Gra w Kółko i Krzyżyk
+Gra w Kółko i Krzyżyk stworzona w HTML, CSS i JavaScript. Umożliwia rozgrywkę dla jednego lub dwóch graczy. Gra jest dynamiczna i zawiera możliwość resetowania po zakończeniu jednej partii.
 
+Opis Funkcji
+startGame()
+Funkcja startGame() inicjalizuje grę. Przeprowadza użytkownika przez proces wyboru liczby graczy, konfiguruje planszę i wyświetla odpowiednie elementy interfejsu. Oto jak działa ta funkcja:
+
+1. Pytanie o liczbę graczy
 javascript
-function createBoard() {
-  board.innerHTML = "";
-  for (let i = 0; i < 9; i++) {
-    const cell = document.createElement("div");
-    cell.classList.add("cell");
-    cell.dataset.index = i;
-    cell.addEventListener("click", handleCellClick);
-    board.appendChild(cell);
-  }
-}
-Co robi: Pętla tworzy 9 divów (komórek), dodaje im klasy i zdarzenie kliknięcia. Każda komórka wie, który ma numer (0–8).
+Kopiuj
+Edytuj
+const players = prompt("Ilu graczy będzie grało? (1 lub 2)", "1");
+Funkcja prompt() wyświetla okno dialogowe, w którym użytkownik zostaje poproszony o wybór liczby graczy (1 lub 2). Domyślnie wybrana jest opcja 1.
 
-Obsługa kliknięcia gracza
+Jeśli użytkownik nie wpisze "1" lub "2", gra nie zostanie rozpoczęta, a użytkownik otrzyma komunikat o błędzie.
+
+2. Sprawdzenie poprawności wyboru liczby graczy
 javascript
-function handleCellClick(event) {
-  const index = event.target.dataset.index;
-  if (!gameActive || gameBoard[index] !== "") return;
-
-  gameBoard[index] = currentPlayer;
-  event.target.textContent = currentPlayer;
-  event.target.classList.add(currentPlayer);
-  
-  if (checkWin()) {
-    message.textContent = `${currentPlayer} wygrał!`;
-    gameActive = false;
-    drawWinningLine();
-  } else if (!gameBoard.includes("")) {
-    message.textContent = "Remis!";
-    gameActive = false;
-  } else {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    message.textContent = `Tura: ${currentPlayer}`;
-  }
-
-  event.target.removeEventListener("click", handleCellClick);
+Kopiuj
+Edytuj
+if (players !== "1" && players !== "2") {
+    alert("Wybierz poprawną liczbę graczy (1 lub 2).");
+    return;
 }
-Co robi: Po kliknięciu pola, wpisuje X lub O, sprawdza, czy ktoś wygrał lub czy jest remis, zmienia gracza.
+Sprawdzamy, czy wprowadzona liczba graczy jest prawidłowa. Jeśli nie, wyświetlamy alert z prośbą o poprawny wybór i przerywamy dalsze wykonywanie funkcji.
 
-Sprawdzanie zwycięzcy
+3. Ukrycie powiadomienia o liczbie graczy
 javascript
-function checkWin() {
-  const winConditions = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6],
-  ];
+Kopiuj
+Edytuj
+document.getElementById("playerNotice").style.display = "none";
+Po poprawnym wyborze liczby graczy ukrywamy komunikat o wyborze liczby graczy (element o id playerNotice), który był wyświetlany na początku.
 
-  for (const condition of winConditions) {
-    const [a, b, c] = condition;
-    if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
-      winningCombo = condition;
-      return true;
-    }
-  }
-
-  return false;
-}
-Co robi: Sprawdza, czy któryś gracz ustawił trzy znaki w jednej linii.
-
-Rysowanie linii zwycięstwa
+4. Pokazanie planszy i innych elementów
 javascript
-function drawWinningLine() {
-  const line = document.createElement("div");
-  line.classList.add("line");
-  board.appendChild(line);
+Kopiuj
+Edytuj
+board.style.display = "grid";
+message.style.display = "block";
+resetBtn.style.display = "inline-block";
+Plansza gry: Zmieniamy styl na grid, aby pokazać planszę do gry w postaci siatki 3x3.
 
-  const start = winningCombo[0];
-  const end = winningCombo[2];
+Komunikat o turze: Ustawiamy widoczność na block, aby pokazać informację o aktualnej turze gracza.
 
-  // Przykład dla wygranej poziomej (pierwszy rząd)
-  if (start === 0 && end === 2) {
-    line.style.top = "50px";
-    line.style.left = "0";
-    line.style.width = "322px";
-    line.style.height = "4px";
-  }
-  // inne przypadki też są w kodzie
-}
-Co robi: Jeśli ktoś wygrał, dodaje czerwoną linię przez zwycięskie pola (w CSS to pozycjonowany div).
+Przycisk resetu: Przycisk resetowania gry staje się widoczny i dostępny.
 
-Reset gry
+5. Tworzenie planszy gry
 javascript
-function resetGame() {
-  gameBoard = ["", "", "", "", "", "", "", "", ""];
-  currentPlayer = "X";
-  gameActive = true;
-  message.textContent = "Tura: X";
+Kopiuj
+Edytuj
+createBoard();
+Funkcja createBoard() tworzy planszę gry. Dodaje do niej 9 pól, które mogą być klikane przez graczy. Każde pole umożliwia wykonanie ruchu i jest odpowiednio stylizowane.
 
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach((cell) => {
-    cell.textContent = "";
-    cell.classList.remove("X", "O");
-    cell.addEventListener("click", handleCellClick);
-  });
-
-  const oldLine = document.querySelector(".line");
-  if (oldLine) {
-    oldLine.remove();
-  }
-}
-Co robi: Czyści planszę, usuwa linię zwycięstwa i pozwala zagrać ponownie.
-
-HTML – Podstawowy układ gry
-<div id="board"></div>
-<p id="message">Tura: X</p>
-<button id="resetBtn">Reset</button>
-Co robi: Plansza do gry, informacja czyja tura i przycisk resetowania.
-
-CSS – Stylowanie komórek
-.cell {
-  width: 100px;
-  height: 100px;
-  font-size: 40px;
-  border: 2px solid #333;
-  background-color: white;
-  text-align: center;
-  border-radius: 15px;
-  cursor: pointer;
-}
-Co robi: Nadaje styl każdej komórce, dzięki czemu plansza wygląda estetycznie i nowocześnie.
+Podsumowanie
+Funkcja startGame() ma za zadanie rozpocząć grę w kółko-krzyżyk, umożliwiając wybór liczby graczy oraz przygotowanie planszy do rozgrywki. Po jej uruchomieniu gra staje się interaktywna, a użytkownicy mogą rozpocząć grę.
