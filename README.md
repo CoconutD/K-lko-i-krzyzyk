@@ -1,3 +1,10 @@
+# Gra w Kółko i Krzyżyk - Wyjaśnienie Kodu
+
+## **1. Pobieranie elementu planszy**
+
+```javascript
+
+const board = document.querySelector("#board");
 1. Pobieranie elementu planszy const board = document.querySelector("#board");
 Co robi ten kod?
 
