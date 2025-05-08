@@ -1,7 +1,9 @@
 # Gra w Kółko i Krzyżyk - Wyjaśnienie Kodu
 
 
+
 ```javascript
+1.
 const board = document.querySelector("#board");
 Co robi ten kod?
 
